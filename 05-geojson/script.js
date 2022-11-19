@@ -53,12 +53,23 @@ async function loadData() {
     // response.data holds the actual data from the geojson file
     // the second parameter of L.geoJson is a configuration object
     const cyclingLayer = L.geoJson(response.data, {
+        // onEachFeature is a fixed function name from Leaflet
+        // it is called for each feature in response.data
         onEachFeature: function(feature, layer) {
+            // feature paramter to the data of the feature
             console.log(feature);
+            
+            // layer parameter is the shape, line or marker etc. that will be added to the map
             layer.bindPopup(feature.properties.Description);
         }
     });
+
+    // add the cycling layer to the map
     cyclingLayer.addTo(map);
+
+    cyclingLayer.setStyle({
+        color: 'red'
+    })
 }
 // outside of the async function, JavaScript will not wait
 
@@ -82,6 +93,10 @@ async function loadData() {
         }
     });
     nparksLayer.addTo(map);
+
+    nparksLayer.setStyle({
+        color: "pink"
+    })
 }
 
 

@@ -38,6 +38,7 @@ tileLayer.addTo(map); // alternatively: map.add(tileLayer);
 //loadData is an async function
 // It has to be an async function because it is using await inside
 loadData();
+loadData2();
 
 // JavaScript has function hoisting.
 // any functions we define will be automatically bring to the top of the JS file
@@ -74,7 +75,6 @@ async function loadData() {
 // outside of the async function, JavaScript will not wait
 
 // console.log("foobar");
-loadData2();
 
 async function loadData2() {
     // await: tell JavaScript to pause the function

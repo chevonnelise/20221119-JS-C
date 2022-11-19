@@ -4,13 +4,12 @@ document.querySelector("#searchBtn").addEventListener("click", async function() 
   console.log(response.data);
 
   document.querySelector("#searchResults").innerHTML = `
-  <h1>${response.data.name}</h1>
-  <ul>
-    <li>Weight:${response.data.weight}</li>
-    <li>Height:${response.data.height}</li>
-    <li>Base Experience:${response.data.base_experience}</li>
-  </ul>
-  <img src="${response.data.sprites.other["official-artwork"].front_default}"/>
+      <h1>${response.data.name}</h1>
+      <ul>
+        <li>Weight:${response.data.weight}</li>
+        <li>Height:${response.data.height}</li>
+        <li>Base Experience:${response.data.base_experience}</li>
+      </ul>
+      <img src="${response.data.sprites.other["official-artwork"].front_default}"/>
   `
-
 })

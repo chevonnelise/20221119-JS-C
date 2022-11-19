@@ -6,7 +6,8 @@ let singapore = [1.29, 103.85]
 // L is provided by leaflet.js
 // L is the leaflet object and it allows us to features from Leaflet
 // the first parameter to the map function is the ID of the <div> that will hold
-const map = L.map('map').setView(singapore, 13);
+const map = L.map('map');
+map.setView(singapore, 13);
 
 // the tile layer basically represents the map you can see
 // when we set up the tile layer we're requesting a visual style of the map
@@ -24,3 +25,27 @@ const tileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
 // reminder: universal thing with leaflet.
 // after you created a Layer, you must add it to the map to display it
 tileLayer.addTo(map); // alternatively: map.add(tileLayer);
+
+// axios.get is an asynchronous function
+// takes a long time to finish and so it is designed as an asynchronous function
+// async JavaScript will not wait for axios.get to finish. It will move to the next line immediately
+// const response = axios.get("cycling-path-network-geojson.geojson").then(function(response) {
+//     console.log(response)
+//     console.log("data has been loaded")
+// });
+// console.log("after") 
+
+//loadData is an async function
+// It has to be an async function because it is using await inside
+async function loadData() {
+    // await: tell JavaScript to pause the function
+    // at the point that we await until axios has finished
+    const response = await axios.get("cycling-path-network-geojson.geojson");
+    console.log(response);
+}
+// outside of the async function, JavaScript will not wait
+loadData();
+console.log("foobar");
+
+
+

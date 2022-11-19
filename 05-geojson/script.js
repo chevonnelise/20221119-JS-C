@@ -48,11 +48,21 @@ async function loadData() {
     // important: axios.get requires a URL
     // in this case we are using a relative URL
     const response = await axios.get("cycling-path.geojson");
-    console.log(response.data);
+
+    // display the content of the geojson file on the map
+    // response.data holds the actual data from the geojson file
+    // the second parameter of L.geoJson is a configuration object
+    const cyclingLayer = L.geoJson(response.data, {
+        onEachFeature: function(feature, layer) {
+            console.log(feature);
+            layer.bindPopup
+        }
+    });
 }
 // outside of the async function, JavaScript will not wait
 
-console.log("foobar");
+// console.log("foobar");
 
+cyclingLayer.addTo(map);
 
 

@@ -40,8 +40,11 @@ tileLayer.addTo(map); // alternatively: map.add(tileLayer);
 async function loadData() {
     // await: tell JavaScript to pause the function
     // at the point that we await until axios has finished
-    const response = await axios.get("cycling-path-network-geojson.geojson");
-    console.log(response);
+
+    // important: axios.get requires a URL
+    // in this case we are using a relative URL
+    const response = await axios.get("cycling-path.geojson");
+    console.log(response.data);
 }
 // outside of the async function, JavaScript will not wait
 loadData();

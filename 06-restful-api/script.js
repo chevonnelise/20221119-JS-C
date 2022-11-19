@@ -1,4 +1,4 @@
-document.querySelector("#searchBtn").addEventListener("click", function() {
+document.querySelector("#searchBtn").addEventListener("click", async function() {
   const searchTerms = document.querySelector("#search").value;
   const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerms}/`);
   console.log(response.data);
@@ -13,4 +13,4 @@ document.querySelector("#searchBtn").addEventListener("click", function() {
   <img src="${response.data.sprites.other["official-artwork"].front_default}"/>
   `
 
-}
+})

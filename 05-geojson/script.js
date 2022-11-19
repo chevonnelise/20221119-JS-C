@@ -55,7 +55,7 @@ async function loadData() {
     const cyclingLayer = L.geoJson(response.data, {
         onEachFeature: function(feature, layer) {
             console.log(feature);
-            layer.bindPopup
+            layer.bindPopup(feature.properties.Description);
         }
     });
 }
@@ -64,5 +64,6 @@ async function loadData() {
 // console.log("foobar");
 
 cyclingLayer.addTo(map);
+
 
 

@@ -58,12 +58,13 @@ async function loadData() {
             layer.bindPopup(feature.properties.Description);
         }
     });
+    cyclingLayer.addTo(map);
 }
 // outside of the async function, JavaScript will not wait
 
 // console.log("foobar");
 
-cyclingLayer.addTo(map);
+
 
 
 

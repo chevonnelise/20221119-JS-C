@@ -58,7 +58,7 @@ async function loadData() {
         onEachFeature: function(feature, layer) {
             // feature paramter to the data of the feature
             console.log(feature);
-            
+
             // layer parameter is the shape, line or marker etc. that will be added to the map
             layer.bindPopup(feature.properties.Description);
         }
@@ -75,29 +75,29 @@ async function loadData() {
 
 // console.log("foobar");
 
-async function loadData() {
-    // await: tell JavaScript to pause the function
-    // at the point that we await until axios has finished
+// async function loadData2() {
+//     // await: tell JavaScript to pause the function
+//     // at the point that we await until axios has finished
 
-    // important: axios.get requires a URL
-    // in this case we are using a relative URL
-    const response = await axios.get("nparks.geojson");
+//     // important: axios.get requires a URL
+//     // in this case we are using a relative URL
+//     const response = await axios.get("nparks.geojson");
 
-    // display the content of the geojson file on the map
-    // response.data holds the actual data from the geojson file
-    // the second parameter of L.geoJson is a configuration object
-    const nparksLayer = L.geoJson(response.data, {
-        onEachFeature: function(feature, layer) {
-            console.log(feature);
-            layer.bindPopup(feature.properties.Description);
-        }
-    });
-    nparksLayer.addTo(map);
+//     // display the content of the geojson file on the map
+//     // response.data holds the actual data from the geojson file
+//     // the second parameter of L.geoJson is a configuration object
+//     const nparksLayer = L.geoJson(response.data, {
+//         onEachFeature: function(feature, layer) {
+//             console.log(feature);
+//             layer.bindPopup(feature.properties.Description);
+//         }
+//     });
+//     nparksLayer.addTo(map);
 
-    nparksLayer.setStyle({
-        color: "pink"
-    })
-}
+//     nparksLayer.setStyle({
+//         color: "pink"
+//     })
+// }
 
 
 

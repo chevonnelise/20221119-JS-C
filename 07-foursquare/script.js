@@ -1,26 +1,69 @@
-async function main() {
-    // call the init function;
-    init()
 
-    function init(){
+
+async function main() {
+    // call the init function
+    init();
+ 
+    // it is possible to define function inside another function
+    function init() {
         let map = initMap();
+
+        // add the search results maker to a LayerGroup
+        // for easier management, and so that we can toggle it on/off
+        const resultLayer = L.layerGroup();
+        resultLayer.addTo(map);
         
-        document.querySelector("search-btn").addEventListerner("click", async function() {
-            const searchTerms = document.querySelector("search-terms").value;
+        document.querySelector("#search-btn").addEventListener("click", async function(){
+
+            // remove all existing markers from search
+            resultLayer.clearLayers();
+
+            const searchTerms = document.querySelector("#search-terms").value;
             const center = map.getBounds().getCenter();
             const ll = center.lat + "," + center.lng;
-            const results = await loadData(searchTerms, 11, 2000);
-            console.log(results);
-            for (let r of results) {
-                const lat = r.
+            const results = await loadData(searchTerms, ll, 2000);
+ 
+            for (let r of results.results) {
+                const lat = r.geocodes.main.latitude;
+                const lng = r.geocodes.main.longitude;
+                const marker = L.marker([lat,lng]);
+                marker.addTo(resultLayer);
+                marker.bindPopup(function(){
+                    let div = document.createElement('div');
+                    div.innerHTML = `<h1>${r.name}</h1>
+                                <button class="btn">Click me</button>
+                    `;
+                    div.querySelector(".btn").addEventListener("click", function(){
+                        alert(r.name);
+                    })
+
+                    return div;
+                });
+
+                // display the search result under the search box
+
+                // create a new element to store the result
+                let resultElement = document.createElement('div');
+                resultElement.innerHTML = r.name;
+                resultElement.classList.add("search-result-entry");
+
+                document.querySelector("#search-results").appendChild(resultElement);
+                resultElement.addEventListener("click", function(){
+                   map.flyTo([lat,lng]);
+                   marker.openPopup();
+                })
+
             }
-        })
+        });
     }
-    const centerPoint = [1.29, 103.85];
+}
+
+function initMap() {
+    const centerPoint = [1.3521, 103.8198];
     const map = L.map("map");
-    map.setView(centerPoint, 13);
-    // const results = await loadData("chicken rice", "1.3061,103.8832", 1000);
-    // console.log(results);
+    map.setView(centerPoint, 14);
+
+    // create the tile layer
     const tileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -28,7 +71,9 @@ async function main() {
         tileSize: 512,
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
-})
+    });
     tileLayer.addTo(map);
+    return map;
 }
+
 main();

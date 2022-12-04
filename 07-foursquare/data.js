@@ -5,15 +5,14 @@ async function loadData(query, latLng, radius) {
     const response = await axios.get("https://api.foursquare.com/v3/places/search", {
         params: {
             query: query,
-            ll: latLng, 
-            // near: "Singapore",
-            v: '20210903', // indicate which version of FourSquare to use
-            // sort: "DISTANCE",
-            radius: radius
+            ll: latLng,
+            v: '20210903',  // indicate which version of FourSquare to use
+            radius: radius,
+            limit: 50
         },
         headers:{
             Accept: 'application/json',
-            Authorization:'fsq3nFyhScVac1Z+tda7jpd/yU3I+0LdiGEOKNqJuevVJF8='
+            Authorization:'fsq3wsVh3XbICcgWtobQCeG2CT41ct8V9NIVPvTLADIg70A='
         }
     });
     return response.data;
